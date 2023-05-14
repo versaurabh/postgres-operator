@@ -4,15 +4,15 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: test-pg
+  name: test-pg2
 ---
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   name: acid-minimal-cluster
-  namespace: test-pg
+  namespace: test-pg2
   labels:
-    app: test-pg
+    app: test-pg2
 spec:
   patroni:
     initdb:
@@ -82,9 +82,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: acid-minimal-cluster-svc-metrics-master
-  namespace: test-pg
+  namespace: test-pg2
   labels:
-    app: test-pg
+    app: test-pg2
     spilo-role: master
   annotations:
       prometheus.io/scrape: "true"
@@ -104,9 +104,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: acid-minimal-cluster-svc-metrics-replica
-  namespace: test-pg
+  namespace: test-pg2
   labels:
-    app: test-pg
+    app: test-pg2
     spilo-role: replica
   annotations:
       prometheus.io/scrape: "true"
@@ -126,9 +126,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: acid-minimal-cluster-svcm-master
-  namespace: test-pg
+  namespace: test-pg2
   labels:
-    app: test-pg
+    app: test-pg2
     spilo-role: master
 spec:
   endpoints:
@@ -140,16 +140,16 @@ spec:
       - monitoring
   selector:
     matchLabels:
-      app: test-pg
+      app: test-pg2
       spilo-role: master
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: acid-minimal-cluster-svcm-replica
-  namespace: test-pg
+  namespace: test-pg2
   labels:
-    app: test-pg
+    app: test-pg2
     spilo-role: replica
 spec:
   endpoints:
@@ -161,5 +161,5 @@ spec:
       - monitoring
   selector:
     matchLabels:
-      app: test-pg
+      app: test-pg2
       spilo-role: replica
