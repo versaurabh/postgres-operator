@@ -1,0 +1,7 @@
+# from https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/additional-scrape-config.md
+
+- job_name: pheus
+	scrape_interval: 10s
+  static_configs:
+  - targets:
+    - acid-minimal-cluster-svc-metrics-master.test-pg2:9187
